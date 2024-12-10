@@ -2,30 +2,34 @@ import React from 'react'
 import styles from "./Main.module.css"
 
 export default function Main() {
-    const ingredients = ["Chicken", "Oregano", "Tomatoes"]
-
-    const ingredientsMap = ingredients.map((ingredient) => {
-        return <li key={ingredient}>{ingredient}</li>
-    })
-
     /**
-     * Challenge:
-     * Add the new ingredient to the array of ingredients. Also, add a 
-     * console.log(ingredients) after adding the ingredient, because 
-     * **warning**: you aren't going to see the page update!
-     * 
-     * Hint: this is a one-liner solution, so don't overthink it 😅
+     * Challenge: Update our app so that when the user enters a
+     * new ingredient and submits the form, it adds that new
+     * ingredient to our list!
      */
 
+    const [ingredients, setIngerdients] = React.useState(["Chicken", "Oregano", "Tomatoes"])
+
+    const ingredientsListItems = ingredients.map(ingredient => (
+        <li key={ingredient}>{ingredient}</li>
+    ))
+
     function handleSubmit(event) {
+        /**
+         * Like before, don't worry about this FormData stuff yet.
+         * Just use the newIngredient below to help you finish the
+         * challenge.
+         */
+
         event.preventDefault()
-        // console.log("Form submitted!")
-        const formData = new FormData(event.target)
+        const formData = new FormData(event.currentTarget)
         const newIngredient = formData.get("ingredient")
-        // console.log(newIngredient)
-        ingredients.push(newIngredient)
-        console.log(ingredients)
+
+        setIngerdients((prevIngredients) => {
+            return [...prevIngredients, newIngredient]
+        })
     }
+
     return (
         <main>
             <form className={styles.addIngredientForm} onSubmit={handleSubmit}>
@@ -37,7 +41,7 @@ export default function Main() {
                 />
                 <button type="submit">+ Add Ingredient</button>
             </form>
-            <ul>{ingredientsMap}</ul>
+            <ul>{ingredientsListItems}</ul>
         </main>
     )
 }
