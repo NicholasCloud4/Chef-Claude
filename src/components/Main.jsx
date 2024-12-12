@@ -15,6 +15,13 @@ export default function Main() {
         setIngredients(prevIngredients => [...prevIngredients, newIngredient])
     }
 
+    /**
+     * Challenge:
+     * Only display the div.get-recipe-container if the ingredients list
+     * has more than 3 items in it. (Fewer than that and it might not
+     * give great results from the chef 🤖👩‍🍳)
+     */
+
     return (
         <main>
             <form className={styles.addIngredientForm} action={addIngredient} >
@@ -32,13 +39,14 @@ export default function Main() {
                     <section>
                         <h2>Ingredients on hand:</h2>
                         <ul className={styles.ingredientsList} aria-live="polite">{ingredientsListItems}</ul>
-                        <div className={styles.getRecipeContainer}>
+                        {ingredients.length === 3 ? <div className={styles.getRecipeContainer}>
                             <div>
                                 <h3>Ready for a recipe?</h3>
                                 <p>Generate a recipe from your list of ingredients.</p>
                             </div>
                             <button>Get a recipe</button>
-                        </div>
+                        </div> : <h3>Add at least 3 ingredients to get started!</h3>}
+
                     </section>
                     :
                     <h3>Add some ingredients to get started!</h3>
