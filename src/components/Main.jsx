@@ -2,22 +2,13 @@ import React from 'react'
 import styles from "./Main.module.css"
 
 export default function Main() {
-    /**
-     * Challenge: Update our app so that when the user enters a
-     * new ingredient and submits the form, it adds that new
-     * ingredient to our list!
-     */
 
-    const [ingredients, setIngredients] = React.useState(["Chicken", "Oregano", "Tomatoes"])
+    const [ingredients, setIngredients] = React.useState([])
 
     const ingredientsListItems = ingredients.map(ingredient => (
         <li key={ingredient}>{ingredient}</li>
     ))
 
-    /**
-     * Challenge: use form action instead of onSubmit to
-     * handle the data from the form
-     */
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient")
@@ -26,7 +17,7 @@ export default function Main() {
 
     return (
         <main>
-            <form className={styles.addIngredientForm} action={addIngredient} method="post" >
+            <form className={styles.addIngredientForm} action={addIngredient} >
                 <input
                     type="text"
                     placeholder="e.g. oregano"
@@ -36,7 +27,22 @@ export default function Main() {
                 <button>+ Add Ingredient</button>
             </form>
 
-            <ul>{ingredientsListItems}</ul>
+            {
+                ingredients.length > 0 ?
+                    <section>
+                        <h2>Ingredients on hand:</h2>
+                        <ul className={styles.ingredientsList} aria-live="polite">{ingredientsListItems}</ul>
+                        <div className={styles.getRecipeContainer}>
+                            <div>
+                                <h3>Ready for a recipe?</h3>
+                                <p>Generate a recipe from your list of ingredients.</p>
+                            </div>
+                            <button>Get a recipe</button>
+                        </div>
+                    </section>
+                    :
+                    <h3>Add some ingredients to get started!</h3>
+            }
 
         </main>
     )
