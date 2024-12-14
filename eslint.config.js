@@ -23,6 +23,9 @@ export default [
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
+    env: {
+      node: true, // Add this line
+    },
     rules: {
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
