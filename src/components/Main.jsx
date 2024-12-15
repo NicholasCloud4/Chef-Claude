@@ -7,7 +7,7 @@ import { getRecipeFromChefClaude, getRecipeFromMistral } from "./ai"
 export default function Main() {
 
     const [ingredients, setIngredients] = React.useState(["all the main spices", "pasta", "ground beef", "tomato paste"])
-    const [recipeShown, setRecipeShown] = React.useState(false)
+    const [recipe, setRecipe] = React.useState("")
 
 
 
@@ -19,6 +19,7 @@ export default function Main() {
     async function getRecipe() {
         const recipeMarkdown = await getRecipeFromMistral(ingredients)
         console.log(recipeMarkdown)
+        setRecipe(recipeMarkdown)
     }
 
     return (
@@ -41,8 +42,8 @@ export default function Main() {
             }
 
             {
-                recipeShown === true ?
-                    <ClaudeRecipe />
+                recipe !== "" ?
+                    <ClaudeRecipe recipe={recipe} />
                     : ""}
 
         </main>
