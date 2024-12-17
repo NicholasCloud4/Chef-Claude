@@ -6,8 +6,10 @@ import { getRecipeFromChefClaude, getRecipeFromMistral } from "./ai"
 
 export default function Main() {
 
-    const [ingredients, setIngredients] = React.useState(["all the main spices", "pasta", "ground beef", "tomato paste"])
+    const [ingredients, setIngredients] = React.useState([])
     const [recipe, setRecipe] = React.useState("")
+    const recipeSection = React.useRef(null)
+    console.log(recipeSection)
 
 
 
@@ -36,7 +38,7 @@ export default function Main() {
 
             {
                 ingredients.length > 0 ?
-                    <IngredientsList ingredients={ingredients} getRecipe={getRecipe} />
+                    <IngredientsList ref={recipeSection} ingredients={ingredients} getRecipe={getRecipe} />
                     :
                     <h3>Add some ingredients to get started!</h3>
             }
